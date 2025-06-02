@@ -1,7 +1,5 @@
-// Script para possíveis interações futuras
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Site PG Gesso Drywall carregado com sucesso!');
-  });
+  console.log('Site PG Gesso Drywall carregado com sucesso!');
 
   document.getElementById('menu-toggle').addEventListener('click', () => {
     const menu = document.getElementById('mobile-menu');
@@ -12,11 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const nextBtn = document.getElementById('next');
   const prevBtn = document.getElementById('prev');
   const indicatorsContainer = document.getElementById('indicators');
-  const scrollAmount = 300;
+  const card = carousel.querySelector('div'); // primeiro card
+  const gap = 24; // gap-6 do Tailwind = 24px
+  const cardWidth = card.offsetWidth + gap;
 
   let autoplayInterval;
   let cardCount = carousel.children.length;
-  let visibleCards = Math.floor(carousel.offsetWidth / scrollAmount);
   let currentIndex = 0;
 
   function createIndicators() {
@@ -40,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function scrollToCard(index) {
     carousel.scrollTo({
-      left: index * scrollAmount,
+      left: index * cardWidth,
       behavior: 'smooth'
     });
     updateIndicators(index);
@@ -84,3 +83,4 @@ document.addEventListener('DOMContentLoaded', () => {
   // Init
   createIndicators();
   startAutoplay();
+});
