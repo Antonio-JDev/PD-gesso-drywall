@@ -1,0 +1,208 @@
+
+
+header {
+  background-color: #000;
+  padding: 10px;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.text-orange-500 {
+  color: #ffa500;
+}
+
+.img-logo {
+  display: inline;
+  width: 15%;
+  height: auto;
+}
+ 
+  nav a {
+  font-size: 20px; 
+  color: #ffa500;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+nav a:hover {
+  color: #fffb00e1;
+  text-decoration: underline;
+}
+
+.fab.fa-instagram {
+  font-size: 30px;
+}
+
+.bg-dark-600, .bg-black-600, .bg-gray-600{
+  background-color: #111;
+}
+.texto-hero {
+  text-shadow: #000 0px 0px 5px;
+}
+  
+
+#hero {
+  position: relative;
+  background-image: url('../assets/background/SANCA-DE-GESSO-1-1-2.jpg'); /* troque a imagem conforme necessário */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 140px 100px;
+  text-align: center;
+  color: white;
+}
+
+#hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* escurece a imagem de fundo */
+  z-index: 1;
+}
+
+#hero .hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+
+
+.hero-btn {
+  display: inline-block;
+  background-color: #ffa500;
+  color: #000;
+  padding: 14px 28px;
+  margin-top: 30px;
+  text-decoration: none;
+  border-radius: 50px;
+  border: #fff 1px solid;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+
+.hero-btn:hover {
+  background-color: #f795019e;
+  box-shadow: #ffffff 2px 2px;
+}
+.hero-btn:active {
+  background-color: #cc8400;
+}
+
+#hero a i {
+  font-size: 20px;
+  color: #1c9b03c0;
+  margin-left: 10px;
+}
+
+.historia-content {
+  color: #000;
+  /* border: #fff 1px solid; */
+  font-weight: 400;
+}
+
+
+.container-foto .foto {
+  max-width: 60%;
+  border-radius: 50%;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.container-foto img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+.foto.sombra-interna{
+  background: rgba(230, 106, 5, 0.986);
+}
+
+.bg-gray-900 h2 {
+  text-shadow: #000 0px 0px 5px
+}
+
+
+.bg-orange-500, .bg-gray-900 {
+  background-color: #ff8825;
+}
+
+.bg-white-pq {
+  background-color: #ff8825;
+  color: #000000;
+  /* padding: 40px;  */
+}
+
+
+
+.ml-4 {
+  height: 100px;
+  width: 100px;
+
+}
+
+.whatsapp-button{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
+.nossos-servicos {
+  text-shadow: #ffa500;
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+  
+  .card h3 {
+    color: #ffa500;
+    margin: 15px;
+  }
+  
+  .card p {
+    padding: 0 15px 15px;
+  }
+
+  #indicators span {
+    transition: background-color 0.3s ease;
+  }
+  
+  
+  #avaliacoes {
+    background-color: #111;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  
+  .btn-avaliar {
+    display: inline-block;
+    background-color: #ffa500;
+    color: #000;
+    padding: 12px 24px;
+    margin-top: 20px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-avaliar:hover {
+    background-color: #caa258;
+  }
+  
+  footer {
+    background-color: #000;
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9em;
+  }
+  
