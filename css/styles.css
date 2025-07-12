@@ -180,6 +180,64 @@ nav a:hover {
   }
 }
 
+/* Responsividade da seção de localização */
+@media screen and (max-width: 768px) {
+  #localizacao .grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  #localizacao iframe {
+    height: 250px;
+  }
+}
+
+/* Responsividade do formulário */
+@media screen and (max-width: 768px) {
+  #formulario-contato .grid {
+    grid-template-columns: 1fr;
+  }
+  
+  #formulario-contato .hero-btn {
+    width: 100%;
+    padding: 12px 24px;
+  }
+}
+
+/* Melhorias gerais para mobile */
+@media screen and (max-width: 486px) {
+  .py-20 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  
+  .px-10 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  h2.text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+  
+  /* Ajustes da seção de localização para mobile */
+  #localizacao .space-y-6 > div {
+    margin-bottom: 1rem;
+  }
+  
+  #localizacao .bg-gray-700 {
+    padding: 1rem;
+  }
+  
+  /* Ajustes do formulário para mobile */
+  #formulario-contato input,
+  #formulario-contato select,
+  #formulario-contato textarea {
+    font-size: 16px; /* Evita zoom automático no iOS */
+  }
+}
+
 
 .bg-orange-500, .bg-gray-900 {
   background-color: #ff8825;
