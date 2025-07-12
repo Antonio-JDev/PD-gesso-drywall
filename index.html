@@ -331,6 +331,142 @@
         </section>
 
 
+        </section>
+
+        <!-- Formulário de Contato -->
+        <section id="formulario-contato" class="bg-gray-700 py-20 px-10 text-white">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-orange-400 text-center mb-4">Solicite seu Orçamento</h2>
+                <p class="text-lg text-center text-gray-300 mb-10">
+                    Preencha o formulário abaixo e entraremos em contato rapidamente para apresentar a melhor solução para seu projeto.
+                </p>
+                
+                <form id="contato-form" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Nome -->
+                        <div>
+                            <label for="nome" class="block text-sm font-semibold text-orange-400 mb-2">
+                                <i class="fas fa-user mr-2"></i>Nome Completo *
+                            </label>
+                            <input 
+                                type="text" 
+                                id="nome" 
+                                name="nome" 
+                                required
+                                class="w-full px-4 py-3 bg-gray-800 text-white border border-gray-600 rounded-lg focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20 transition-colors"
+                                placeholder="Digite seu nome completo"
+                            >
+                        </div>
+                        
+                        <!-- Telefone -->
+                        <div>
+                            <label for="telefone" class="block text-sm font-semibold text-orange-400 mb-2">
+                                <i class="fas fa-phone mr-2"></i>Telefone/WhatsApp *
+                            </label>
+                            <input 
+                                type="tel" 
+                                id="telefone" 
+                                name="telefone" 
+                                required
+                                class="w-full px-4 py-3 bg-gray-800 text-white border border-gray-600 rounded-lg focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20 transition-colors"
+                                placeholder="(47) 99999-9999"
+                            >
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Email -->
+                        <div>
+                            <label for="email" class="block text-sm font-semibold text-orange-400 mb-2">
+                                <i class="fas fa-envelope mr-2"></i>Email *
+                            </label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                required
+                                class="w-full px-4 py-3 bg-gray-800 text-white border border-gray-600 rounded-lg focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20 transition-colors"
+                                placeholder="seu@email.com"
+                            >
+                        </div>
+                        
+                        <!-- Cidade -->
+                        <div>
+                            <label for="cidade" class="block text-sm font-semibold text-orange-400 mb-2">
+                                <i class="fas fa-map-marker-alt mr-2"></i>Cidade
+                            </label>
+                            <input 
+                                type="text" 
+                                id="cidade" 
+                                name="cidade"
+                                class="w-full px-4 py-3 bg-gray-800 text-white border border-gray-600 rounded-lg focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20 transition-colors"
+                                placeholder="Itajaí, Navegantes, etc."
+                            >
+                        </div>
+                    </div>
+                    
+                    <!-- Tipo de Serviço -->
+                    <div>
+                        <label for="servico" class="block text-sm font-semibold text-orange-400 mb-2">
+                            <i class="fas fa-tools mr-2"></i>Tipo de Serviço
+                        </label>
+                        <select 
+                            id="servico" 
+                            name="servico"
+                            class="w-full px-4 py-3 bg-gray-800 text-white border border-gray-600 rounded-lg focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20 transition-colors"
+                        >
+                            <option value="">Selecione o serviço desejado</option>
+                            <option value="forro-gesso">Forro de Gesso Acartonado</option>
+                            <option value="paredes-drywall">Paredes de Drywall</option>
+                            <option value="decoracoes">Decorações em Forros e Paredes</option>
+                            <option value="forro-modular">Forro Modular</option>
+                            <option value="pinturas">Pinturas</option>
+                            <option value="steel-frame">Steel Frame</option>
+                            <option value="outros">Outros serviços</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Mensagem -->
+                    <div>
+                        <label for="mensagem" class="block text-sm font-semibold text-orange-400 mb-2">
+                            <i class="fas fa-comment mr-2"></i>Descreva seu Projeto *
+                        </label>
+                        <textarea 
+                            id="mensagem" 
+                            name="mensagem" 
+                            rows="4" 
+                            required
+                            class="w-full px-4 py-3 bg-gray-800 text-white border border-gray-600 rounded-lg focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20 transition-colors resize-vertical"
+                            placeholder="Descreva detalhes do seu projeto: tamanho do ambiente, tipo de acabamento desejado, prazo, etc."
+                        ></textarea>
+                    </div>
+                    
+                    <!-- Botão de envio -->
+                    <div class="text-center">
+                        <button 
+                            type="submit" 
+                            class="hero-btn inline-flex items-center px-8 py-4 text-lg font-bold"
+                        >
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            Enviar Solicitação
+                        </button>
+                    </div>
+                </form>
+                
+                <!-- Mensagem de status -->
+                <div id="form-message" class="mt-6 text-center hidden">
+                    <div id="success-message" class="bg-green-600 text-white p-4 rounded-lg hidden">
+                        <i class="fas fa-check-circle mr-2"></i>
+                        Mensagem enviada com sucesso! Entraremos em contato em breve.
+                    </div>
+                    <div id="error-message" class="bg-red-600 text-white p-4 rounded-lg hidden">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        Erro ao enviar mensagem. Tente novamente ou entre em contato via WhatsApp.
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="contato" class="bg-black py-16 text-center">
             <h2 class="text-3xl text-orange-400 font-bold mb-6">Entre em Contato</h2>
             <p class="text-lg max-w-xl mx-auto text-gray-200">
