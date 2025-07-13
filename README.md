@@ -3,7 +3,7 @@
 ## Resumo do Projeto
 Desenvolvimento completo do site da PD Gesso Drywall com foco em responsividade mobile-first.
 
-## Confira em [https://pdgesso-drywall.com.br](https://pdgesso-drywall.com.br)
+## Confira em [PDgessodrywall.com.br](https://pdgessodrywall.com.br)
 
 <img src="./assets/images/img-by-readme/iPhone-14-Pro-438x891.png" width="100" height="200" alt="Screenshot da Landing Page"/>
 <img src="./assets/images/img-by-readme/Macbook-Air-2011x1165.png" width="300" alt="Screenshot da Landing Page"/>
