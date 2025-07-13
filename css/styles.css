@@ -9,6 +9,7 @@ header {
   left: 0;
   right: 0;
   z-index: 1000;
+  
 }
 
 .text-orange-500, .text-orange-400 {
@@ -20,12 +21,12 @@ header {
 
 .img-logo {
   display: inline;
-  width: 15%;
+  width: 12%;
   height: auto;
 }
  
   nav a {
-  font-size: 20px; 
+  font-size: 18px; 
   color: #ffa500;
   font-weight: bold;
   text-transform: uppercase;
@@ -55,7 +56,7 @@ nav a:hover {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  padding: 140px 100px;
+  padding: 160px 110px;
   text-align: center;
   color: white;
 }
@@ -64,7 +65,7 @@ nav a:hover {
   content: "";
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.6); /* escurece a imagem de fundo */
+  background-color: rgba(0, 0, 0, 0.541); /* escurece a imagem de fundo */
   z-index: 1;
 }
 
@@ -90,7 +91,7 @@ nav a:hover {
 
 
 .hero-btn:hover {
-  background-color: #f795019e;
+  background-color: #f7d512;
   box-shadow: #ffffff 2px 2px;
 }
 .hero-btn:active {
@@ -134,14 +135,42 @@ nav a:hover {
   }
 }
 
-
+.historia {
+  background-color: #f7f7f7;
+  padding: 50px 20px;
+  text-align: center;
+}
+.historia h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+.historia p {
+  font-size: 1.2rem;
+  color: #666;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.historia img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+.historia-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8861bf3;
+  border-radius: 10px;
+  box-shadow: rgba(241, 237, 2, 0.185) 0px 4px 12px;
+}
 
 .historia-content {
   color: #000;
   /* border: #fff 1px solid; */
   font-weight: 400;
 }
-
 
 .container-foto .foto {
   max-width: 60%;
@@ -161,6 +190,20 @@ nav a:hover {
 
 .bg-gray-900 h2 {
   text-shadow: #000 0px 0px 5px
+}
+
+#carousel {
+  padding: 4rem 1rem; /* Desktop */
+}
+@media (max-width: 768px) {
+  #carousel {
+    padding: 2rem 0.5rem;
+  }
+}
+
+/* Espaço entre cards de serviços */
+.card-service {
+  margin-bottom: 2rem;
 }
 
 @media screen and (max-width: 486px) {
