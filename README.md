@@ -1,7 +1,12 @@
-# Relatório de Refatoração - PD Gesso Drywall
+# Landingpage PD Gesso Drywall
 
 ## Resumo do Projeto
-Refatoração completa do site da PD Gesso Drywall com adição de novas funcionalidades, correção de erros e melhorias na responsividade mobile-first.
+Desenvolvimento completo do site da PD Gesso Drywall com foco em responsividade mobile-first.
+
+## Confira em [https://pdgesso-drywall.com.br](https://pdgesso-drywall.com.br)
+
+<img src="./assets/images/img-by-readme/iPhone-14-Pro-438x891.png" width="100" height="200" alt="Screenshot da Landing Page"/>
+<img src="./assets/images/img-by-readme/Macbook-Air-2011x1165.png" width="300" alt="Screenshot da Landing Page"/>
 
 ## Tarefas Solicitadas e Implementadas
 
@@ -28,7 +33,8 @@ Refatoração completa do site da PD Gesso Drywall com adição de novas funcion
 
 ### ✅ 3. Correções de Erros
 **Erros Corrigidos:**
-- Classe CSS incorreta "text-orange-500a" → "text-orange-500"
+- Problemas de responsividade em dispositivos móveis
+- Links quebrados corrigidos
 - Estrutura HTML do formulário otimizada
 - Validações JavaScript implementadas
 - Mensagens de erro estruturadas corretamente
@@ -56,10 +62,6 @@ Refatoração completa do site da PD Gesso Drywall com adição de novas funcion
 - Font Awesome icons
 - Responsive Design
 
-## Arquivos Modificados
-1. `/app/index.html` - Adicionadas novas seções e melhorias estruturais
-2. `/app/css/styles.css` - Melhorias na responsividade e novos estilos
-3. `/app/js/script.js` - Funcionalidade do formulário e validações
 
 ## Testes Realizados
 ### ✅ Testes Visuais
@@ -84,15 +86,14 @@ Refatoração completa do site da PD Gesso Drywall com adição de novas funcion
 - ✅ Formulário de contato profissional e funcional
 - ✅ Navegação aprimorada
 - ✅ Experiência do usuário melhorada
-- ✅ Todos os erros identificados corrigidos
 
-## Próximos Passos Sugeridos
-1. Testes em dispositivos reais
-2. Integração com sistema de CRM (opcional)
-3. Analytics e tracking de conversões
-4. Otimização de imagens
-5. Implementação de lazy loading
+## Conclusão
+O projeto foi concluído com sucesso, atendendo a todas as solicitações e implementando melhorias significativas na usabilidade e design do site. A equipe está satisfeita com os resultados e acredita que o site agora oferece uma experiência de usuário superior, especialmente em dispositivos móveis.
 
 ---
-**Data de Conclusão:** 12/07/2025
+**Data de Início:** 01/07/2025
+**Data de Entrega:** 13/07/2025
+**Data de Conclusão:** 13/07/2025
 **Status:** Concluído com sucesso ✅
+## Landing Page PD Gesso Drywall - projeto freelancer
+realizado em 2025 por Antonio Junior dos Santos - Developer Front-end

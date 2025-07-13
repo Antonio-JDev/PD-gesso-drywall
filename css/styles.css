@@ -105,7 +105,7 @@ nav a:hover {
 }
 @media screen and (max-width: 486px) {
   #hero {
-    padding: 80px 20px;
+    padding: 200px 20px;
     background-position: center top;
     background-size: cover;
   }
@@ -196,10 +196,66 @@ nav a:hover {
   padding: 4rem 1rem; /* Desktop */
 }
 @media (max-width: 768px) {
+  nav {
+    position: fixed;
+    top: 20;
+    left: 0;
+    right: 0;
+    background-color: #000000;
+    z-index: 1000;
+    padding: 10px 20px;   
+  }
+  nav ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  nav a {
+    font-size: 16px; /* Tamanho da fonte no mobile */
+  }
+  #hero {
+    padding: 180px 20px; /* Ajuste do padding para mobile */
+    background-position: center top;
+    background-size: cover;
+  }
+
   #carousel {
     padding: 2rem 0.5rem;
   }
+  #carousel > div {
+    width: 100%; /* Card único no mobile */
+    flex: 0 0 auto;
+  }
+  #carousel > div img {
+    height: 200px; /* Altura fixa para imagens no carrossel */
+  }
+  #carousel > div h3 {
+    font-size: 1.25rem; /* Tamanho do título no carrossel */
+  }
+  #carousel > div p {
+    font-size: 1rem; /* Tamanho da descrição no carrossel */
+  }
+  #prev, #next {
+    display: none; /* Esconde os botões laterais no mobile */
+  }
+  #carousel {
+    gap: 3rem; /* Espaçamento entre os cards no mobile */
+  }
+
 }
+
+.transform {
+    transition-property: transform, opacity;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
+
+#mobile-menu {
+    transition: opacity 300ms ease-in-out;
+}
+
+/* Espaço entre cards de serviços */
+
 
 /* Espaço entre cards de serviços */
 .card-service {
@@ -282,6 +338,7 @@ nav a:hover {
 }
 
 
+
 .bg-orange-500, .bg-gray-900 {
   background-color: #ff8825;
 }
@@ -307,9 +364,7 @@ nav a:hover {
   z-index: 100;
 }
 
-.nossos-servicos {
-  text-shadow: #ffa500;
-}
+
 
 .card img {
   width: 100%;

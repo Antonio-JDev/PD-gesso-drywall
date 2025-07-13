@@ -72,19 +72,16 @@
 </head>
 
 <body class="bg-black text-white font-sans">
-    <header class="bg-black shadow-md fixed top-0 w-full z-50">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+    <header class="bg-black shadow-md fixed top-0 w-full z-50 bg-black py-4 px-6">
+        <div class="flex justify-between items-center max-w-7xl mx-auto">
             <a href="#" class="flex items-center gap-2">
                 <img src="./assets/images/logo-pdg.png" alt="Logo PD Gesso Drywall" class="w-10 sm:w-12 md:w-14 h-auto">
                 <h1 class="text-xl sm:text-2xl text-orange-500 font-bold uppercase">pd gesso drywall</h1>
             </a>
-            <button id="menu-toggle" class="text-white md:hidden focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-            </button>
-            <nav class="hidden md:flex gap-6 text-white font-semibold">
-                <a href="https://www.instagram.com/pdgesso_drywall/" title="ir para o instagram" target="_blank">
+            <!-- Menu Desktop -->
+            <nav class="hidden xl:flex gap-6 text-white font-semibold">
+                <a href="https://www.instagram.com/pdgesso_drywall/" title="ir para o instagram" target="_blank"
+                    class="hover:text-orange-500">
                     <i class="fab fa-instagram"></i>
                 </a>
                 <a href="#localizacao" class="hover:text-orange-500">Localização</a>
@@ -93,27 +90,85 @@
                 <a href="./pages/portfolio.html" class="hover:text-orange-500">Portfólio</a>
                 <a href="#filosofia" class="hover:text-orange-500">Filosofia</a>
             </nav>
+            <button id="mobile-menu-toggle" class="lg:hidden text-white focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
         </div>
-        <div id="mobile-menu" class="md:hidden hidden bg-gray-600 px-4 pb-4">
-            <nav class="flex flex-col gap-3 text-white font-semibold">
+        <!-- Botão Toggle (agora visível em telas médias) -->
 
-                <a href="https://www.instagram.com/pdgesso_drywall/" title="ir para o instagram" target="_blank">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="#localizacao" class="hover:text-orange-500">Localização</a>
-                <a href="#formulario-contato" class="hover:text-orange-500">Orçamento</a>
-                <a href="#servicos" class="hover:text-orange-500">Serviços</a>
-                <a href="./pages/portfolio.html" class="hover:text-orange-500">Portfólio</a>
-                <a href="#avaliacoes" class="hover:text-orange-500">Avaliações</a>
-            </nav>
+        <!-- Menu Mobile com animações -->
+        <div id="mobile-menu" class="fixed inset-0 z-50 hidden overflow-y-auto">
+            <!-- Overlay -->
+            <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300 ease-in-out"></div>
+
+            <!-- Conteúdo do Menu -->
+            <div
+                class="relative bg-black shadow-xl transform transition-all duration-300 ease-in-out -translate-x-full max-w-xs w-full h-full">
+                <!-- Cabeçalho do Menu -->
+                <div class="flex justify-between items-center px-6 py-4 border-b border-gray-700">
+                    <img src="./assets/images/logo-pdg.png" alt="PD Gesso Drywall" class="h-8">
+                    <button id="mobile-menu-close" class="text-white hover:text-orange-500 transition">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+
+                <!-- Navegação -->
+                <nav class="flex flex-col gap-1 p-4">
+                    <!-- Instagram -->
+                    <a href="https://www.instagram.com/pdgesso_drywall/"
+                        class="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg hover:from-purple-700 hover:to-pink-700 transition transform hover:scale-[1.02]">
+                        <i class="fab fa-instagram text-xl"></i>
+                        <span>Instagram</span>
+                    </a>
+
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/5547997882116"
+                        class="flex items-center gap-3 px-4 py-3 bg-green-600 rounded-lg hover:bg-green-700 transition transform hover:scale-[1.02] mt-2">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                        <span>WhatsApp</span>
+                    </a>
+
+                    <!-- Links de navegação -->
+                    <a href="#servicos"
+                        class="flex items-center gap-3 px-4 py-3 hover:bg-gray-700 rounded-lg transition transform hover:translate-x-1">
+                        <i class="fas fa-tools text-orange-500"></i>
+                        <span>Serviços</span>
+                    </a>
+
+                    <a href="./pages/portfolio.html"
+                        class="flex items-center gap-3 px-4 py-3 hover:bg-gray-700 rounded-lg transition transform hover:translate-x-1">
+                        <i class="fas fa-images text-orange-500"></i>
+                        <span>Portfólio</span>
+                    </a>
+
+                    <a href="#avaliacoes"
+                        class="flex items-center gap-3 px-4 py-3 hover:bg-gray-700 rounded-lg transition transform hover:translate-x-1">
+                        <i class="fas fa-star text-orange-500"></i>
+                        <span>Avaliações</span>
+                    </a>
+
+                    <a href="#localizacao"
+                        class="flex items-center gap-3 px-4 py-3 hover:bg-gray-700 rounded-lg transition transform hover:translate-x-1">
+                        <i class="fas fa-map-marker-alt text-orange-500"></i>
+                        <span>Localização</span>
+                    </a>
+
+                    <a href="#formulario-contato"
+                        class="flex items-center gap-3 px-4 py-3 hover:bg-gray-700 rounded-lg transition transform hover:translate-x-1">
+                        <i class="fas fa-file-signature text-orange-500"></i>
+                        <span>Orçamento</span>
+                    </a>
+                </nav>
+            </div>
         </div>
     </header>
 
     <main>
         <section id="hero">
             <div class="hero-content py-20 px-10">
-                <h2 class="text-4xl font-bold mb-4 texto-hero">Transformamos espaços com qualidade e excelência.</h2>
-                <p class="text-xl">Especialistas em Drywall para residências e empresas.</p>
+                <h2 class="text-4xl font-bold mb-4 text-orange-400 ">Transformamos espaços com qualidade e excelência.
+                </h2>
+                <p class="text-xl">Soluções em Drywall para residências e empresas.</p>
                 <a href="https://wa.me/5547997882116/" class="hero-btn">Solicitar Orçamento <i
                         class="fab fa-whatsapp"></i></a>
             </div>
@@ -151,7 +206,7 @@
 
 
         <section id="servicos" class="py-14 px-10 bg-black text-white">
-            <h2 class="text-3xl text-orange-400 font-bold text-center  nossos-servicos">Nossos Serviços</h2>
+            <h2 class="text-3xl text-orange-400 font-bold text-center  ">Nossos Serviços</h2>
 
             <div class="relative max-w-6xl mx-auto">
                 <!-- Botões de navegação -->
@@ -166,8 +221,6 @@
 
                 <!-- Container do carrossel -->
                 <div id="carousel" class="overflow-x-auto scroll-smooth flex gap-6 px-4 sm:px-10 snap-x snap-mandatory">
-                    <!-- <button id="prev" class="hidden sm:block ...">‹</button>
-<button id="next" class="hidden sm:block ...">›</button> -->
 
                     <!-- Card 1 -->
                     <div
@@ -241,9 +294,12 @@
 
         <section id="filosofia" class="bg-gray-600 py-20 px-4 sm:px-10">
             <div class="max-w-6xl mx-auto">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-orange-500">Nossa Filosofia</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-orange-400">Nossa Filosofia</h2>
 
-                <p class="text-lg text-orange-900 text-center mb-8 bg-orange-500 rounded-xl p-8 shadow-md hover:shadow-lg transition-shadow duration-300 text-center">Trabalhamos com dedicação e compromisso para oferecer o melhor em drywall e steel frame. Acreditamos na importância de um bom planejamento e execução para garantir a satisfação dos nossos clientes.</p>
+                <p
+                    class="text-lg text-black text-center mb-8 bg-orange-500 rounded-xl p-8 shadow-md hover:shadow-lg transition-shadow duration-300">
+                    Trabalhamos com dedicação e compromisso para oferecer o melhor em drywall e steel frame. Acreditamos
+                    na importância de um bom planejamento e execução para garantir a satisfação dos nossos clientes.</p>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <!-- Missão -->
@@ -359,7 +415,7 @@
 
         <section class="bg-black py-20 px-4 sm:px-10 text-gray-900">
             <div class="max-w-6xl mx-auto">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-orange-500">Por que contratar a PD
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-orange-400">Por que contratar a PD
                     Gesso Drywall?</h2>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -579,92 +635,99 @@
 
     </main>
 
-   <footer class="bg-gray-600 text-gray-300">
-    <!-- Seção de Contato -->
-    <section id="contato" class="py-16 px-4 sm:px-6">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-4xl text-orange-500 font-bold mb-8 text-center">Entre em Contato</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                <!-- Informações de Contato -->
-                <div class="bg-gray-800 p-6 rounded-lg">
-                    <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
-                        <i class="fas fa-info-circle text-orange-500 mr-2"></i> Informações
-                    </h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt text-orange-500 mt-1 mr-3"></i>
-                            <span>Itajaí, SC - Brasil</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-phone-alt text-orange-500 mt-1 mr-3"></i>
-                            <span>(47) 99788-2116</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-envelope text-orange-500 mt-1 mr-3"></i>
-                            <span>contato@pdgessodrywall.com.br</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-clock text-orange-500 mt-1 mr-3"></i>
-                            <span>Seg-Sab: 8h às 18h</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- Links Rápidos -->
-                <div class="bg-gray-800 p-6 rounded-lg">
-                    <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
-                        <i class="fas fa-link text-orange-500 mr-2"></i> Links Rápidos
-                    </h3>
-                    <ul class="space-y-3">
-                        <li><a href="#servicos" class="hover:text-orange-400 transition">Serviços</a></li>
-                        <li><a href="#sobre" class="hover:text-orange-400 transition">Sobre Nós</a></li>
-                        <li><a href="#portfolio" class="hover:text-orange-400 transition">Portfólio</a></li>
-                        <li><a href="#contato" class="hover:text-orange-400 transition">Contato</a></li>
+    <footer class="bg-gray-600 text-gray-300">
+        <!-- Seção de Contato -->
+        <section id="contato" class="py-16 px-4 sm:px-6">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl md:text-4xl text-orange-400 font-bold mb-8 text-center">Entre em Contato</h2>
 
-                    </ul>
-                </div>
-                
-                <!-- Redes Sociais -->
-                <div class="bg-gray-800 p-6 rounded-lg">
-                    <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
-                        <i class="fas fa-share-alt text-orange-500 mr-2"></i> Redes Sociais
-                    </h3>
-                    <div class="flex justify-center gap-4 mb-4">
-                        <a href="https://wa.me/5547997882116" target="_blank" class="bg-green-600 hover:bg-green-700 text-white p-3 rounded-full transition">
-                            <i class="fab fa-whatsapp text-xl"></i>
-                        </a>
-                        <a href="https://www.instagram.com/pdgesso_drywall/" target="_blank" class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white p-3 rounded-full transition">
-                            <i class="fab fa-instagram text-xl"></i>
-                        </a>
-                        <a href="mailto:policarpodiasro@gmail.com" class="bg-gray-600 hover:bg-gray-700 text-white p-3 rounded-full transition">
-                            <i class="fas fa-envelope text-xl"></i>
-                        </a>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                    <!-- Informações de Contato -->
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
+                            <i class="fas fa-info-circle text-orange-500 mr-2"></i> Informações
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-orange-500 mt-1 mr-3"></i>
+                                <span>Itajaí, SC - Brasil</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-phone-alt text-orange-500 mt-1 mr-3"></i>
+                                <span>(47) 99788-2116</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-envelope text-orange-500 mt-1 mr-3"></i>
+                                <span>contato@pdgessodrywall.com.br</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-clock text-orange-500 mt-1 mr-3"></i>
+                                <span>Seg-Sab: 8h às 18h</span>
+                            </li>
+                        </ul>
                     </div>
-                    <p class="text-sm">Siga-nos para ver nossos projetos e promoções!</p>
+
+                    <!-- Links Rápidos -->
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
+                            <i class="fas fa-link text-orange-500 mr-2"></i> Links Rápidos
+                        </h3>
+                        <ul class="space-y-3">
+                            <li><a href="#servicos" class="hover:text-orange-400 transition">Serviços</a></li>
+                            <li><a href="#sobre" class="hover:text-orange-400 transition">Sobre Nós</a></li>
+                            <li><a href="#portfolio" class="hover:text-orange-400 transition">Portfólio</a></li>
+                            <li><a href="#contato" class="hover:text-orange-400 transition">Contato</a></li>
+
+                        </ul>
+                    </div>
+
+                    <!-- Redes Sociais -->
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
+                            <i class="fas fa-share-alt text-orange-500 mr-2"></i> Redes Sociais
+                        </h3>
+                        <div class="flex justify-center gap-4 mb-4">
+                            <a href="https://wa.me/5547997882116" target="_blank"
+                                class="bg-green-600 hover:bg-green-700 text-white p-3 rounded-full transition">
+                                <i class="fab fa-whatsapp text-xl"></i>
+                            </a>
+                            <a href="https://www.instagram.com/pdgesso_drywall/" target="_blank"
+                                class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white p-3 rounded-full transition">
+                                <i class="fab fa-instagram text-xl"></i>
+                            </a>
+                            <a href="mailto:policarpodiasro@gmail.com"
+                                class="bg-gray-600 hover:bg-gray-700 text-white p-3 rounded-full transition">
+                                <i class="fas fa-envelope text-xl"></i>
+                            </a>
+                        </div>
+                        <p class="text-sm">Siga-nos para ver nossos projetos e promoções!</p>
+                    </div>
+                </div>
+
+                <!-- Botão de WhatsApp -->
+                <div class="text-center">
+                    <a href="https://wa.me/5547997882116" target="_blank"
+                        class="inline-flex items-center bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-3 rounded-full transition duration-300">
+                        <i class="fab fa-whatsapp text-xl mr-2"></i> Fale Conosco pelo WhatsApp
+                    </a>
                 </div>
             </div>
-            
-            <!-- Botão de WhatsApp -->
-            <div class="text-center">
-                <a href="https://wa.me/5547997882116" target="_blank"
-                    class="inline-flex items-center bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition duration-300">
-                    <i class="fab fa-whatsapp text-xl mr-2"></i> Fale Conosco pelo WhatsApp
-                </a>
+        </section>
+
+        <!-- Rodapé Inferior -->
+        <div class=" py-3 px-2">
+            <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-center items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>&copy; 2025 PD Gesso Drywall - Todos os direitos reservados</p>
+                    <p class="text-xs mt-1">CNPJ: 49.694.009/0001-39</p>
+                    <!-- Exemplo de adição de logo -->
+                    <div class="text-center mb-8">
+                        <img src="/assets/images/logo-pdg.png" alt="PD Gesso Drywall" class="h-12 mx-auto">
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
-    
-    <!-- Rodapé Inferior -->
-    <div class=" py-6 px-4">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-center items-center">
-            <div class="mb-4 md:mb-0">
-                <p>&copy; 2025 PD Gesso Drywall - Todos os direitos reservados</p>
-                <p class="text-xs mt-1">CNPJ: 49.694.009/0001-39</p>
-            </div>
-        </div>
-    </div>
-</footer>
+    </footer>
 
     <!-- Botão WhatsApp -->
     <a href="https://wa.me/5547997882116" target="_blank" class="whatsapp-button">

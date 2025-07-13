@@ -214,3 +214,31 @@ Data: ${new Date().toLocaleString('pt-BR')}
     e.target.value = value;
   });
 });
+
+const toggleButton = document.getElementById('mobile-menu-toggle');
+    const closeButton = document.getElementById('mobile-menu-close');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    // Abrir menu
+    toggleButton.addEventListener('click', () => {
+        mobileMenu.classList.remove('hidden');
+        setTimeout(() => {
+            mobileMenu.querySelector('.transform').classList.remove('-translate-x-full');
+        }, 20);
+    });
+    
+    // Fechar menu
+    closeButton.addEventListener('click', () => {
+        mobileMenu.querySelector('.transform').classList.add('-translate-x-full');
+        setTimeout(() => {
+            mobileMenu.classList.add('hidden');
+        }, 300);
+    });
+    
+    // Fechar ao clicar no overlay
+    mobileMenu.querySelector('.bg-opacity-50').addEventListener('click', () => {
+        mobileMenu.querySelector('.transform').classList.add('-translate-x-full');
+        setTimeout(() => {
+            mobileMenu.classList.add('hidden');
+        }, 300);
+    });
