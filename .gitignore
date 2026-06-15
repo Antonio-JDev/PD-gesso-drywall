@@ -1,0 +1,4 @@
+node_modules/
+.cursor/
+.agents/
+skills-lock.json
