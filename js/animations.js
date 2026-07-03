@@ -1,6 +1,6 @@
 /**
  * PD Gesso Drywall — ScrollTrigger premium
- * Conteúdo visível por padrão; animações fromTo com immediateRender: false.
+ * Elementos começam ocultos, surgem no scroll e revertem ao subir.
  */
 (function () {
   'use strict';
@@ -9,8 +9,31 @@
   const ScrollTrigger = window.ScrollTrigger;
 
   const EASE = 'power4.out';
-  const SCROLL_DEFAULTS = { ease: EASE, immediateRender: false };
+  /** onEnter | onLeave | onEnterBack | onLeaveBack */
+  const SCROLL_TOGGLE = 'play none none reverse';
   const DURATION = { heading: 0.85, card: 0.75, accent: 0.55, item: 0.65 };
+
+  const HIDE_SELECTOR = [
+    '.hero-animate',
+    '.reveal-heading',
+    '.reveal-subheading',
+    '.reveal-accent',
+    '.reveal-item',
+    '.stat-item',
+    '.video-showcase-card',
+    '.video-showcase-tag',
+    '.diferencial-card',
+    '.location-card',
+    '#servicos .scroll-card:not([data-carousel-clone])',
+    '.service-feature-content',
+    '.service-feature-image',
+    '.service-feature figure',
+    '.service-feature-list li',
+    '#cta-comercial .cta-banner-actions > *',
+    '#formulario-contato .form-grid-2 > div',
+    '#contato-form > div:not(.form-grid-2):not(.text-center)',
+    '#contato-form .text-center',
+  ].join(', ');
 
   let motionScale = 1;
 
@@ -30,21 +53,26 @@
   }
 
   function clearStaleInlineStyles() {
-    document.querySelectorAll(
-      '.hero-animate, .reveal-heading, .reveal-subheading, .reveal-accent, .reveal-item, .scroll-card, .video-showcase-card, .diferencial-card, .stat-item'
-    ).forEach((el) => {
+    document.querySelectorAll(HIDE_SELECTOR).forEach((el) => {
       el.style.removeProperty('opacity');
       el.style.removeProperty('visibility');
       el.style.removeProperty('transform');
     });
   }
 
+  function prepareHiddenState() {
+    const elements = gsap.utils.toArray(HIDE_SELECTOR);
+    if (!elements.length) return;
+    gsap.set(elements, { autoAlpha: 0 });
+  }
+
   function revealAll() {
-    clearStaleInlineStyles();
     if (gsap) {
-      gsap.killTweensOf('.hero-animate, .reveal-heading, .reveal-subheading, .reveal-accent, .reveal-item, .scroll-card');
+      gsap.killTweensOf(HIDE_SELECTOR);
       ScrollTrigger?.getAll().forEach((st) => st.kill());
+      gsap.set(HIDE_SELECTOR, { autoAlpha: 1, clearProps: 'opacity,visibility,transform' });
     }
+    clearStaleInlineStyles();
     markReady();
   }
 
@@ -56,15 +84,14 @@
 
   function revealAccent(timeline, accent, position) {
     if (!accent) return;
-    timeline.fromTo(
+    gsap.set(accent, { scaleX: 0, autoAlpha: 0, transformOrigin: 'center center' });
+    timeline.to(
       accent,
-      { scaleX: 0, autoAlpha: 0, transformOrigin: 'center center' },
       {
         scaleX: 1,
         autoAlpha: 1,
         duration: DURATION.accent,
         ease: EASE,
-        immediateRender: false,
         onStart: () => setRevealing(accent, true),
         onComplete: () => setRevealing(accent, false),
       },
@@ -76,38 +103,34 @@
     const heading = section.querySelector('.reveal-heading');
     const subheading = section.querySelector('.reveal-subheading');
     const accent = section.querySelector('.reveal-accent');
-    const start = opts.start || 'top 85%';
+    const start = opts.start || 'top 90%';
+    const headingY = 48 * motionScale;
+
+    if (heading) gsap.set(heading, { autoAlpha: 0, y: headingY });
+    if (subheading) gsap.set(subheading, { autoAlpha: 0, y: 28 * motionScale });
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: opts.trigger || section,
         start,
-        toggleActions: 'play none none none',
-        once: true,
+        toggleActions: SCROLL_TOGGLE,
       },
-      defaults: SCROLL_DEFAULTS,
+      defaults: { ease: EASE },
     });
 
-    const headingY = 48 * motionScale;
-
     if (heading) {
-      tl.fromTo(
-        heading,
-        { autoAlpha: 0, y: headingY },
-        {
-          autoAlpha: 1,
-          y: 0,
-          duration: DURATION.heading,
-          onStart: () => setRevealing(heading, true),
-          onComplete: () => setRevealing(heading, false),
-        }
-      );
+      tl.to(heading, {
+        autoAlpha: 1,
+        y: 0,
+        duration: DURATION.heading,
+        onStart: () => setRevealing(heading, true),
+        onComplete: () => setRevealing(heading, false),
+      });
     }
     revealAccent(tl, accent, '-=0.4');
     if (subheading) {
-      tl.fromTo(
+      tl.to(
         subheading,
-        { autoAlpha: 0, y: 28 * motionScale },
         {
           autoAlpha: 1,
           y: 0,
@@ -128,31 +151,42 @@
 
     const fromMotion = opts.from || MOTION.up();
     const stagger = opts.stagger ?? 0.1;
-    const start = opts.start || 'top 88%';
-    const trigger = opts.trigger;
+    const start = opts.start || 'top 90%';
+    const duration = opts.duration || DURATION.card;
     const onEnterExtra = opts.onEnter;
+    const onLeaveExtra = opts.onLeaveBack;
+
+    gsap.set(elements, { autoAlpha: 0, ...fromMotion });
 
     ScrollTrigger.batch(elements, {
       start,
-      once: true,
       onEnter: (batch) => {
         setRevealing(batch, true);
-        gsap.fromTo(
-          batch,
-          { autoAlpha: 0, ...fromMotion },
-          {
-            autoAlpha: 1,
-            x: 0,
-            y: 0,
-            scale: 1,
-            duration: opts.duration || DURATION.card,
-            stagger,
-            ease: EASE,
-            overwrite: 'auto',
-            onComplete: () => setRevealing(batch, false),
-          }
-        );
+        gsap.to(batch, {
+          autoAlpha: 1,
+          x: 0,
+          y: 0,
+          scale: 1,
+          duration,
+          stagger,
+          ease: EASE,
+          overwrite: 'auto',
+          onComplete: () => setRevealing(batch, false),
+        });
         if (onEnterExtra) onEnterExtra(batch);
+      },
+      onLeaveBack: (batch) => {
+        setRevealing(batch, true);
+        gsap.to(batch, {
+          autoAlpha: 0,
+          ...fromMotion,
+          duration: duration * 0.75,
+          stagger: { each: stagger * 0.6, from: 'end' },
+          ease: EASE,
+          overwrite: 'auto',
+          onComplete: () => setRevealing(batch, false),
+        });
+        if (onLeaveExtra) onLeaveExtra(batch);
       },
     });
   }
@@ -161,18 +195,20 @@
     const list = gsap.utils.toArray(targets);
     if (!list.length) return;
 
+    gsap.set(list, fromVars);
+
     gsap.fromTo(list, fromVars, {
       ...toVars,
       ease: EASE,
       immediateRender: false,
       scrollTrigger: {
         trigger: triggerEl,
-        start: start || 'top 85%',
-        toggleActions: 'play none none none',
-        once: true,
+        start: start || 'top 90%',
+        toggleActions: SCROLL_TOGGLE,
       },
       onStart: () => setRevealing(list, true),
       onComplete: () => setRevealing(list, false),
+      onReverseComplete: () => setRevealing(list, false),
     });
   }
 
@@ -180,19 +216,17 @@
     const targets = gsap.utils.toArray('.hero-animate');
     if (!targets.length) return;
 
-    gsap.fromTo(
-      targets,
-      { autoAlpha: 0, y: 48 },
-      {
-        autoAlpha: 1,
-        y: 0,
-        duration: 0.9,
-        stagger: 0.14,
-        ease: EASE,
-        onStart: () => setRevealing(targets, true),
-        onComplete: () => setRevealing(targets, false),
-      }
-    );
+    gsap.set(targets, { autoAlpha: 0, y: 48 });
+
+    gsap.to(targets, {
+      autoAlpha: 1,
+      y: 0,
+      duration: 0.9,
+      stagger: 0.14,
+      ease: EASE,
+      onStart: () => setRevealing(targets, true),
+      onComplete: () => setRevealing(targets, false),
+    });
   }
 
   function initHeroParallax() {
@@ -222,30 +256,43 @@
     const statsBar = document.getElementById('stats-bar');
     if (!statsBar) return;
 
+    const items = gsap.utils.toArray('#stats-bar .stat-item');
+    if (!items.length) return;
+
     let statsTriggered = false;
 
-    ScrollTrigger.batch('#stats-bar .stat-item', {
+    const fromMotion = { autoAlpha: 0, y: 56 * motionScale, scale: 0.9 };
+    gsap.set(items, fromMotion);
+
+    ScrollTrigger.batch(items, {
       start: 'top 92%',
-      once: true,
       onEnter: (batch) => {
         setRevealing(batch, true);
-        gsap.fromTo(
-          batch,
-          { autoAlpha: 0, y: 56 * motionScale, scale: 0.9 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            scale: 1,
-            duration: DURATION.card,
-            stagger: 0.1,
-            ease: EASE,
-            onComplete: () => setRevealing(batch, false),
-          }
-        );
+        gsap.to(batch, {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          duration: DURATION.card,
+          stagger: 0.1,
+          ease: EASE,
+          overwrite: 'auto',
+          onComplete: () => setRevealing(batch, false),
+        });
         if (!statsTriggered) {
           statsTriggered = true;
           document.dispatchEvent(new CustomEvent('stats:reveal'));
         }
+      },
+      onLeaveBack: (batch) => {
+        setRevealing(batch, true);
+        gsap.to(batch, {
+          ...fromMotion,
+          duration: DURATION.card * 0.75,
+          stagger: { each: 0.06, from: 'end' },
+          ease: EASE,
+          overwrite: 'auto',
+          onComplete: () => setRevealing(batch, false),
+        });
       },
     });
   }
@@ -266,7 +313,7 @@
         { autoAlpha: 0, x: -80 * motionScale, scale: 0.96 },
         { autoAlpha: 1, x: 0, scale: 1, duration: DURATION.heading },
         section,
-        'top 80%'
+        'top 88%'
       );
     }
     if (image) {
@@ -275,7 +322,7 @@
         { autoAlpha: 0, x: 80 * motionScale, scale: 0.94 },
         { autoAlpha: 1, x: 0, scale: 1, duration: DURATION.heading },
         section,
-        'top 80%'
+        'top 88%'
       );
     }
   }
@@ -287,33 +334,31 @@
       const listItems = section.querySelectorAll('.service-feature-list li');
       const fromX = (index % 2 === 0 ? -80 : 80) * motionScale;
 
+      if (content) gsap.set(content, { autoAlpha: 0, x: fromX });
+      if (image) gsap.set(image, { autoAlpha: 0, x: -fromX, scale: 0.94 });
+      if (listItems.length) gsap.set(listItems, { autoAlpha: 0, x: 20 * motionScale });
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
-          start: 'top 82%',
-          toggleActions: 'play none none none',
-          once: true,
+          start: 'top 88%',
+          toggleActions: SCROLL_TOGGLE,
         },
-        defaults: SCROLL_DEFAULTS,
+        defaults: { ease: EASE },
       });
 
       if (content) {
-        tl.fromTo(
-          content,
-          { autoAlpha: 0, x: fromX },
-          {
-            autoAlpha: 1,
-            x: 0,
-            duration: DURATION.heading,
-            onStart: () => setRevealing(content, true),
-            onComplete: () => setRevealing(content, false),
-          }
-        );
+        tl.to(content, {
+          autoAlpha: 1,
+          x: 0,
+          duration: DURATION.heading,
+          onStart: () => setRevealing(content, true),
+          onComplete: () => setRevealing(content, false),
+        });
       }
       if (image) {
-        tl.fromTo(
+        tl.to(
           image,
-          { autoAlpha: 0, x: -fromX, scale: 0.94 },
           {
             autoAlpha: 1,
             x: 0,
@@ -326,9 +371,8 @@
         );
       }
       if (listItems.length) {
-        tl.fromTo(
+        tl.to(
           listItems,
-          { autoAlpha: 0, x: 20 * motionScale },
           {
             autoAlpha: 1,
             x: 0,
@@ -364,30 +408,28 @@
     const section = document.getElementById('obras-em-video');
     if (!section) return;
 
-    sectionHeaderTl(section, { start: 'top 85%' });
+    sectionHeaderTl(section, { start: 'top 90%' });
 
     section.querySelectorAll('.video-showcase-card').forEach((card) => {
       const tag = card.querySelector('.video-showcase-tag');
+      if (!tag) return;
+
+      gsap.set(tag, { autoAlpha: 0, y: 20 * motionScale });
 
       ScrollTrigger.create({
         trigger: card,
-        start: 'top 88%',
-        once: true,
+        start: 'top 90%',
         onEnter: () => {
-          if (tag) {
-            gsap.fromTo(
-              tag,
-              { autoAlpha: 0, y: 20 * motionScale },
-              { autoAlpha: 1, y: 0, duration: 0.5, ease: EASE, immediateRender: false }
-            );
-          }
+          gsap.to(tag, { autoAlpha: 1, y: 0, duration: 0.5, ease: EASE, overwrite: 'auto' });
+        },
+        onLeaveBack: () => {
+          gsap.to(tag, { autoAlpha: 0, y: 20 * motionScale, duration: 0.35, ease: EASE, overwrite: 'auto' });
         },
       });
     });
 
     revealBatch('.video-showcase-card', {
-      trigger: section,
-      start: 'top 85%',
+      start: 'top 90%',
       from: { y: 72 * motionScale, scale: 0.92 },
       stagger: 0.12,
     });
@@ -406,12 +448,12 @@
         { autoAlpha: 0, y: 48 * motionScale, scale: 0.96 },
         { autoAlpha: 1, y: 0, scale: 1, duration: DURATION.heading },
         section,
-        'top 85%'
+        'top 90%'
       );
     }
 
     revealBatch('#servicos .scroll-card:not([data-carousel-clone])', {
-      start: 'top 90%',
+      start: 'top 92%',
       from: { y: 56 * motionScale, scale: 0.93 },
       stagger: 0.08,
       duration: 0.7,
@@ -424,7 +466,7 @@
         { autoAlpha: 0, y: 40 * motionScale },
         { autoAlpha: 1, y: 0, duration: DURATION.card },
         section,
-        'top 80%'
+        'top 88%'
       );
     }
   }
@@ -442,36 +484,55 @@
         { autoAlpha: 0, y: 32 * motionScale, scale: 0.96 },
         { autoAlpha: 1, y: 0, scale: 1, duration: DURATION.heading },
         section,
-        'top 85%'
+        'top 90%'
       );
     }
 
-    ScrollTrigger.batch('#filosofia .reveal-item', {
-      start: 'top 88%',
-      once: true,
+    const cards = gsap.utils.toArray('#filosofia .reveal-item');
+    if (!cards.length) return;
+
+    const fromMotion = { autoAlpha: 0, y: 64 * motionScale, scale: 0.94 };
+    gsap.set(cards, fromMotion);
+
+    ScrollTrigger.batch(cards, {
+      start: 'top 90%',
       onEnter: (batch) => {
         setRevealing(batch, true);
-        gsap.fromTo(
-          batch,
-          { autoAlpha: 0, y: 64 * motionScale, scale: 0.94 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            scale: 1,
-            duration: DURATION.card,
-            stagger: 0.14,
-            ease: EASE,
-            onComplete: () => setRevealing(batch, false),
-          }
-        );
+        gsap.to(batch, {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          duration: DURATION.card,
+          stagger: 0.14,
+          ease: EASE,
+          overwrite: 'auto',
+          onComplete: () => setRevealing(batch, false),
+        });
         batch.forEach((card) => {
           const icon = card.querySelector('.bg-orange-100');
           if (icon) {
             gsap.fromTo(
               icon,
               { scale: 0.5, autoAlpha: 0 },
-              { scale: 1, autoAlpha: 1, duration: 0.55, ease: 'back.out(1.7)', delay: 0.15 }
+              { scale: 1, autoAlpha: 1, duration: 0.55, ease: 'back.out(1.7)', delay: 0.15, overwrite: 'auto' }
             );
+          }
+        });
+      },
+      onLeaveBack: (batch) => {
+        setRevealing(batch, true);
+        gsap.to(batch, {
+          ...fromMotion,
+          duration: DURATION.card * 0.75,
+          stagger: { each: 0.08, from: 'end' },
+          ease: EASE,
+          overwrite: 'auto',
+          onComplete: () => setRevealing(batch, false),
+        });
+        batch.forEach((card) => {
+          const icon = card.querySelector('.bg-orange-100');
+          if (icon) {
+            gsap.to(icon, { scale: 0.5, autoAlpha: 0, duration: 0.35, ease: EASE, overwrite: 'auto' });
           }
         });
       },
@@ -485,7 +546,7 @@
     sectionHeaderTl(section);
 
     revealBatch('#localizacao .location-card', {
-      start: 'top 88%',
+      start: 'top 90%',
       from: { x: -60 * motionScale, scale: 0.96 },
       stagger: 0.12,
     });
@@ -497,7 +558,7 @@
         { autoAlpha: 0, x: 60 * motionScale, scale: 0.97 },
         { autoAlpha: 1, x: 0, scale: 1, duration: DURATION.heading },
         section,
-        'top 85%'
+        'top 90%'
       );
     }
   }
@@ -506,34 +567,60 @@
     const section = document.getElementById('diferenciais');
     if (!section) return;
 
-    sectionHeaderTl(section, { start: 'top 82%' });
+    sectionHeaderTl(section, { start: 'top 88%' });
 
-    ScrollTrigger.batch('#diferenciais .diferencial-card', {
-      start: 'top 88%',
-      once: true,
+    const cards = gsap.utils.toArray('#diferenciais .diferencial-card');
+    if (!cards.length) return;
+
+    const fromMotion = { autoAlpha: 0, y: 72 * motionScale, scale: 0.9 };
+    gsap.set(cards, fromMotion);
+
+    ScrollTrigger.batch(cards, {
+      start: 'top 90%',
       onEnter: (batch) => {
         setRevealing(batch, true);
-        gsap.fromTo(
-          batch,
-          { autoAlpha: 0, y: 72 * motionScale, scale: 0.9 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            scale: 1,
-            duration: DURATION.card,
-            stagger: 0.1,
-            ease: EASE,
-            onComplete: () => setRevealing(batch, false),
-          }
-        );
+        gsap.to(batch, {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          duration: DURATION.card,
+          stagger: 0.1,
+          ease: EASE,
+          overwrite: 'auto',
+          onComplete: () => setRevealing(batch, false),
+        });
         batch.forEach((card) => {
           const icon = card.querySelector('.diferencial-icon');
           if (icon) {
             gsap.fromTo(
               icon,
               { scale: 0.6, rotation: -12, autoAlpha: 0 },
-              { scale: 1, rotation: 0, autoAlpha: 1, duration: 0.6, ease: 'back.out(2)', delay: 0.12 }
+              { scale: 1, rotation: 0, autoAlpha: 1, duration: 0.6, ease: 'back.out(2)', delay: 0.12, overwrite: 'auto' }
             );
+          }
+        });
+      },
+      onLeaveBack: (batch) => {
+        setRevealing(batch, true);
+        gsap.to(batch, {
+          ...fromMotion,
+          duration: DURATION.card * 0.75,
+          stagger: { each: 0.06, from: 'end' },
+          ease: EASE,
+          overwrite: 'auto',
+          onComplete: () => setRevealing(batch, false),
+        });
+        batch.forEach((card) => {
+          const icon = card.querySelector('.diferencial-icon');
+          if (icon) {
+            gsap.to(icon, {
+              scale: 0.6,
+              rotation: -12,
+              autoAlpha: 0,
+              duration: 0.35,
+              ease: EASE,
+              overwrite: 'auto',
+            });
           }
         });
       },
@@ -567,7 +654,7 @@
         { autoAlpha: 0, y: 40 * motionScale, scale: 0.95 },
         { autoAlpha: 1, y: 0, scale: 1, duration: DURATION.heading },
         section,
-        'top 85%'
+        'top 90%'
       );
     }
   }
@@ -580,26 +667,28 @@
     const subheading = section.querySelector('.reveal-subheading, p');
     const actions = section.querySelectorAll('.cta-banner-actions > *');
 
+    if (heading) gsap.set(heading, { autoAlpha: 0, y: 48 * motionScale });
+    if (subheading) gsap.set(subheading, { autoAlpha: 0, y: 32 * motionScale });
+    if (actions.length) gsap.set(actions, { autoAlpha: 0, y: 32 * motionScale, scale: 0.95 });
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
-        start: 'top 85%',
-        toggleActions: 'play none none none',
-        once: true,
+        start: 'top 90%',
+        toggleActions: SCROLL_TOGGLE,
       },
-      defaults: SCROLL_DEFAULTS,
+      defaults: { ease: EASE },
     });
 
     if (heading) {
-      tl.fromTo(heading, { autoAlpha: 0, y: 48 * motionScale }, { autoAlpha: 1, y: 0, duration: DURATION.heading });
+      tl.to(heading, { autoAlpha: 1, y: 0, duration: DURATION.heading });
     }
     if (subheading) {
-      tl.fromTo(subheading, { autoAlpha: 0, y: 32 * motionScale }, { autoAlpha: 1, y: 0, duration: DURATION.item }, '-=0.4');
+      tl.to(subheading, { autoAlpha: 1, y: 0, duration: DURATION.item }, '-=0.4');
     }
     if (actions.length) {
-      tl.fromTo(
+      tl.to(
         actions,
-        { autoAlpha: 0, y: 32 * motionScale, scale: 0.95 },
         { autoAlpha: 1, y: 0, scale: 1, duration: DURATION.card, stagger: 0.12 },
         '-=0.25'
       );
@@ -619,7 +708,7 @@
         { autoAlpha: 0, y: 36 * motionScale },
         { autoAlpha: 1, y: 0, duration: DURATION.item, stagger: 0.08 },
         section,
-        'top 85%'
+        'top 90%'
       );
     }
 
@@ -630,7 +719,7 @@
         { autoAlpha: 0, y: 28 * motionScale, scale: 0.96 },
         { autoAlpha: 1, y: 0, scale: 1, duration: DURATION.card },
         section,
-        'top 80%'
+        'top 88%'
       );
     }
   }
@@ -642,7 +731,7 @@
     sectionHeaderTl(section);
 
     revealBatch('#contato .reveal-item', {
-      start: 'top 90%',
+      start: 'top 92%',
       from: { y: 48 * motionScale, scale: 0.95 },
       stagger: 0.12,
     });
@@ -678,8 +767,6 @@
   }
 
   function init() {
-    clearStaleInlineStyles();
-
     if (!gsap || !ScrollTrigger) {
       markReady();
       return;
@@ -701,6 +788,7 @@
         motionScale = 1;
       });
 
+      prepareHiddenState();
       initHeroEntrance();
       initScrollAnimations();
       markReady();

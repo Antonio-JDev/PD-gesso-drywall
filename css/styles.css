@@ -1071,7 +1071,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   Animações — GSAP controla visibilidade (sem opacity:0 no CSS)
+   Animações — GSAP define autoAlpha:0 no init e revela no scroll
    -------------------------------------------------------------------------- */
 
 .reveal-accent {
